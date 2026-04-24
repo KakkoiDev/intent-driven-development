@@ -1,0 +1,14 @@
+node_modules/
+verify/node_modules/
+verify/package-lock.json
+.DS_Store
+*.log
+*.tmp
+coverage/
+.nyc_output/
+dist/
+build/
+.env
+.env.local
+verify/traceability.yaml
+verify/traceability.mmd
