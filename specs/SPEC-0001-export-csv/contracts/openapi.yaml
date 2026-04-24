@@ -1,0 +1,42 @@
+openapi: 3.1.0
+info:
+  title: Invoice Export API
+  version: 1.0.0
+  description: |
+    Export invoices as CSV. Governed by SPEC-0001.
+paths:
+  /invoices/export:
+    get:
+      operationId: exportInvoices
+      summary: Download invoices as CSV (SPEC-0001-R01, R02, R03, R04, R06)
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: CSV file of invoices (SPEC-0001-R01)
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+                example: attachment; filename=invoices.csv
+          content:
+            text/csv:
+              schema:
+                type: string
+                example: |
+                  id,issue_date,customer_name,amount,currency,status
+                  inv_001,2026-03-01,Acme Corp,1250.00,USD,paid
+        "403":
+          description: Requester lacks finance role (SPEC-0001-R03)
+        "429":
+          description: Rate limit exceeded (SPEC-0001-R05)
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

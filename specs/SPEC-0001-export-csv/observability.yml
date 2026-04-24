@@ -1,0 +1,37 @@
+metrics:
+  - requirement: SPEC-0001-R01
+    type: counter
+    name: invoices_exported_total
+    labels: [role, status]
+  - requirement: SPEC-0001-R01
+    type: histogram
+    name: export_latency_seconds
+    buckets: [0.1, 0.2, 0.4, 0.8, 1.6, 3.2]
+    unit: seconds
+  - requirement: SPEC-0001-R05
+    type: counter
+    name: export_rate_limited_total
+    labels: [role]
+  - requirement: SPEC-0001-R03
+    type: counter
+    name: export_forbidden_total
+    labels: [role]
+
+logs:
+  - requirement: SPEC-0001-R01
+    level: info
+    event: invoice_export_requested
+    fields: [user_id, role, invoice_count]
+  - requirement: SPEC-0001-R03
+    level: warn
+    event: invoice_export_forbidden
+    fields: [user_id, role]
+  - requirement: SPEC-0001-R05
+    level: warn
+    event: invoice_export_rate_limited
+    fields: [user_id, retry_after_seconds]
+
+traces:
+  - requirement: SPEC-0001-R01
+    span: invoice.export
+    attributes: [invoice_count, format, latency_ms]

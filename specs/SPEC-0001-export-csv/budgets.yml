@@ -1,0 +1,19 @@
+performance:
+  - requirement: SPEC-0001-R01
+    p50_ms: 200
+    p95_ms: 800
+    p99_ms: 2000
+    max_memory_mb: 256
+    min_throughput_rps: 20
+
+cost:
+  - requirement: SPEC-0001-R01
+    max_llm_calls_per_request: 0
+    max_external_api_calls: 0
+    max_db_queries: 2
+    target_cost_usd_per_request: 0.0005
+  - requirement: SPEC-0001-R05
+    max_llm_calls_per_request: 0
+    max_external_api_calls: 0
+    max_db_queries: 1
+    target_cost_usd_per_request: 0.0001

@@ -1,0 +1,29 @@
+data_classification:
+  - field: customer_name
+    class: confidential
+    retention_days: 2555
+    governed_by: [SPEC-0001-R01]
+  - field: customer_email
+    class: PII
+    retention_days: 2555
+    gdpr: [art-6, art-17, art-25]
+    governed_by: [SPEC-0001-R06]
+  - field: amount
+    class: financial
+    retention_days: 2555
+    governed_by: [SPEC-0001-R01, SPEC-0001-R04]
+
+security:
+  asvs:
+    - SPEC-0001-R03: [V4.1.1, V4.1.3]
+    - SPEC-0001-R05: [V11.1.1]
+  threat_model:
+    - risk: unauthorized_export
+      mitigation: SPEC-0001-R03
+      stride: E
+    - risk: pii_leak_in_export
+      mitigation: SPEC-0001-R06
+      stride: I
+    - risk: denial_via_export_abuse
+      mitigation: SPEC-0001-R05
+      stride: D

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "idd-example/invoice.schema.json",
+  "title": "Invoice",
+  "type": "object",
+  "required": ["id", "issue_date", "customer_name", "amount", "currency", "status"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^inv_[a-z0-9]{3,}$" },
+    "issue_date": { "type": "string", "format": "date" },
+    "customer_name": { "type": "string", "minLength": 1 },
+    "customer_email": { "type": "string", "format": "email" },
+    "amount": { "type": "number", "minimum": 0 },
+    "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "status": { "enum": ["draft", "issued", "paid", "overdue", "void"] }
+  }
+}

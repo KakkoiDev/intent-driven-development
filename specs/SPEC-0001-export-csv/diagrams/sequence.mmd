@@ -1,0 +1,27 @@
+sequenceDiagram
+  actor User as Finance User
+  participant UI as Web UI
+  participant API
+  participant DB
+  participant Metrics
+
+  User->>UI: click Export
+  UI->>API: GET /invoices/export
+  API->>API: check role == finance (SPEC-0001-R03)
+  alt not finance
+    API-->>UI: 403 forbidden
+    API->>Metrics: export_forbidden_total++
+  else is finance
+    API->>API: check rate limit (SPEC-0001-R05)
+    alt over quota
+      API-->>UI: 429 Retry-After
+      API->>Metrics: export_rate_limited_total++
+    else under quota
+      API->>DB: SELECT invoices
+      DB-->>API: invoice rows
+      API->>API: serialize CSV (SPEC-0001-R02, R04, R06)
+      API->>Metrics: invoices_exported_total++, export_latency_seconds
+      API-->>UI: 200 text/csv
+      UI-->>User: file download
+    end
+  end

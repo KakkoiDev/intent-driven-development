@@ -1,0 +1,29 @@
+[
+  {
+    "id": "inv_001",
+    "issue_date": "2026-03-01",
+    "customer_name": "Acme Corp",
+    "customer_email": "billing@acme.example",
+    "amount": 1250.00,
+    "currency": "USD",
+    "status": "paid"
+  },
+  {
+    "id": "inv_002",
+    "issue_date": "2026-03-15",
+    "customer_name": "Globex Ltd",
+    "customer_email": "ap@globex.example",
+    "amount": 4200.50,
+    "currency": "USD",
+    "status": "issued"
+  },
+  {
+    "id": "inv_003",
+    "issue_date": "2026-03-28",
+    "customer_name": "Initech",
+    "customer_email": "accounts@initech.example",
+    "amount": 985.75,
+    "currency": "USD",
+    "status": "overdue"
+  }
+]

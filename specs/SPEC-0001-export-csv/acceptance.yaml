@@ -1,0 +1,58 @@
+- requirement: SPEC-0001-R01
+  given:
+    role: finance
+    fixture: fixtures/three-invoices.json
+  when: GET /invoices/export
+  then:
+    status: 200
+    content-type: text/csv
+    body-match: expected/three-invoices.csv
+    latency-p95-ms: 800
+
+- requirement: SPEC-0001-R02
+  given:
+    role: finance
+    fixture: fixtures/three-invoices.json
+  when: GET /invoices/export
+  then:
+    status: 200
+    first-line: "id,issue_date,customer_name,amount,currency,status"
+
+- requirement: SPEC-0001-R03
+  given:
+    role: viewer
+    fixture: fixtures/three-invoices.json
+  when: GET /invoices/export
+  then:
+    status: 403
+    body-not-contains: ["inv_"]
+
+- requirement: SPEC-0001-R04
+  given:
+    role: finance
+    fixture: fixtures/three-invoices.json
+  when: GET /invoices/export
+  then:
+    status: 200
+    amounts-match-pattern: "^[0-9]+\\.[0-9]{2}$"
+
+- requirement: SPEC-0001-R05
+  given:
+    role: finance
+    fixture: fixtures/three-invoices.json
+    request-count: 11
+    request-window-seconds: 60
+  when: GET /invoices/export (11th)
+  then:
+    status: 429
+    header-present: Retry-After
+
+- requirement: SPEC-0001-R06
+  given:
+    role: finance
+    fixture: fixtures/three-invoices.json
+  when: GET /invoices/export
+  then:
+    status: 200
+    header-line-not-contains: customer_email
+    body-not-matches: "@"
