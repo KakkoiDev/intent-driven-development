@@ -1,0 +1,35 @@
+name: IDD Validate
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: verify/package.json
+
+      - name: Install validator deps
+        working-directory: verify
+        run: npm install --no-audit --no-fund
+
+      - name: Run IDD validator
+        run: node verify/validator.mjs
+
+      - name: Upload traceability artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: idd-traceability
+          path: |
+            verify/traceability.yaml
+            verify/traceability.mmd
+          if-no-files-found: ignore
