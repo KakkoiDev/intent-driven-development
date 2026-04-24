@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "idd/plan.schema.json",
+  "title": "IDD Plan Frontmatter",
+  "type": "object",
+  "required": ["id", "implements", "tasks", "status"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^PLAN-\\d{4}$" },
+    "implements": { "type": "string", "pattern": "^SPEC-\\d{4}$" },
+    "adrs": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^ADR-\\d{3}$" }
+    },
+    "tasks": { "type": "string" },
+    "status": { "enum": ["draft", "proposed", "accepted", "implemented", "deprecated", "superseded"] },
+    "supersedes": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^PLAN-\\d{4}$" }
+      ]
+    }
+  }
+}

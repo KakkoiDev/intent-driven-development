@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "idd/tasks.schema.json",
+  "title": "IDD Tasks File",
+  "type": "object",
+  "required": ["tasks"],
+  "additionalProperties": false,
+  "properties": {
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "satisfies", "produces", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^TASK-\\d{4}-\\d{2}$" },
+          "satisfies": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^SPEC-\\d{4}-R\\d{2}$" }
+          },
+          "emits": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "produces": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          },
+          "status": { "enum": ["todo", "in-progress", "done", "blocked"] },
+          "depends-on": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^TASK-\\d{4}-\\d{2}$" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "idd/budgets.schema.json",
+  "title": "IDD Budgets Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "performance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["requirement"],
+        "additionalProperties": false,
+        "properties": {
+          "requirement": { "type": "string", "pattern": "^SPEC-\\d{4}-R\\d{2}$" },
+          "p50_ms": { "type": "number", "minimum": 0 },
+          "p95_ms": { "type": "number", "minimum": 0 },
+          "p99_ms": { "type": "number", "minimum": 0 },
+          "max_memory_mb": { "type": "number", "minimum": 0 },
+          "min_throughput_rps": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "cost": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["requirement"],
+        "additionalProperties": false,
+        "properties": {
+          "requirement": { "type": "string", "pattern": "^SPEC-\\d{4}-R\\d{2}$" },
+          "max_llm_calls_per_request": { "type": "integer", "minimum": 0 },
+          "max_external_api_calls": { "type": "integer", "minimum": 0 },
+          "max_db_queries": { "type": "integer", "minimum": 0 },
+          "target_cost_usd_per_request": { "type": "number", "minimum": 0 }
+        }
+      }
+    }
+  }
+}

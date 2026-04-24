@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "idd/observability.schema.json",
+  "title": "IDD Observability Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["requirement", "type", "name"],
+        "additionalProperties": false,
+        "properties": {
+          "requirement": { "type": "string", "pattern": "^SPEC-\\d{4}-R\\d{2}$" },
+          "type": { "enum": ["counter", "gauge", "histogram", "summary"] },
+          "name": { "type": "string" },
+          "labels": { "type": "array", "items": { "type": "string" } },
+          "buckets": { "type": "array", "items": { "type": "number" } },
+          "unit": { "type": "string" }
+        }
+      }
+    },
+    "logs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["requirement", "level", "event"],
+        "additionalProperties": false,
+        "properties": {
+          "requirement": { "type": "string", "pattern": "^SPEC-\\d{4}-R\\d{2}$" },
+          "level": { "enum": ["debug", "info", "warn", "error"] },
+          "event": { "type": "string" },
+          "fields": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "traces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["requirement", "span"],
+        "additionalProperties": false,
+        "properties": {
+          "requirement": { "type": "string", "pattern": "^SPEC-\\d{4}-R\\d{2}$" },
+          "span": { "type": "string" },
+          "attributes": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

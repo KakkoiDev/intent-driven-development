@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "idd/spec.schema.json",
+  "title": "IDD Spec Frontmatter",
+  "type": "object",
+  "required": ["id", "slug", "status", "parent", "version"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^SPEC-\\d{4}$" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "status": { "enum": ["draft", "proposed", "accepted", "implemented", "deprecated", "superseded"] },
+    "parent": { "type": "string", "pattern": "^INT-\\d{4}$" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "contracts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "observability": { "type": "string" },
+    "compliance": { "type": "string" },
+    "budgets": { "type": "string" },
+    "diagrams": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "\\.mmd$" }
+    },
+    "verified-by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "mutation-threshold": { "type": "number", "minimum": 0, "maximum": 1 },
+    "judge-model": { "type": "string" },
+    "ambiguity-threshold": { "type": "number", "minimum": 0, "maximum": 1 },
+    "generation-seed": { "type": "integer" },
+    "compiled-hash": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      ]
+    },
+    "external-spec": { "type": "string", "format": "uri" },
+    "supersedes": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^SPEC-\\d{4}$" }
+      ]
+    },
+    "superseded-by": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^SPEC-\\d{4}$" }
+      ]
+    }
+  }
+}

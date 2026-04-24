@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "idd/compliance.schema.json",
+  "title": "IDD Compliance Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "data_classification": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field", "class"],
+        "additionalProperties": false,
+        "properties": {
+          "field": { "type": "string" },
+          "class": { "enum": ["public", "internal", "confidential", "PII", "financial", "health", "sensitive"] },
+          "retention_days": { "type": "integer", "minimum": 0 },
+          "gdpr": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^art-\\d+$" }
+          },
+          "governed_by": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^SPEC-\\d{4}-R\\d{2}$" }
+          }
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "asvs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "patternProperties": {
+              "^SPEC-\\d{4}-R\\d{2}$": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        },
+        "threat_model": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["risk", "mitigation", "stride"],
+            "additionalProperties": false,
+            "properties": {
+              "risk": { "type": "string" },
+              "mitigation": { "type": "string", "pattern": "^SPEC-\\d{4}-R\\d{2}$" },
+              "stride": { "enum": ["S", "T", "R", "I", "D", "E"] }
+            }
+          }
+        }
+      }
+    }
+  }
+}

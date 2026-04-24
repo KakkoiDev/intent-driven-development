@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "idd/adr.schema.json",
+  "title": "IDD ADR Frontmatter",
+  "type": "object",
+  "required": ["id", "status", "context", "immutable"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^ADR-\\d{3}$" },
+    "status": { "enum": ["proposed", "accepted", "superseded"] },
+    "context": { "type": "string", "pattern": "^PLAN-\\d{4}$" },
+    "immutable": { "const": true },
+    "supersedes": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^ADR-\\d{3}$" }
+      ]
+    },
+    "superseded-by": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^ADR-\\d{3}$" }
+      ]
+    }
+  }
+}
