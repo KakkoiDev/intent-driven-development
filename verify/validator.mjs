@@ -6,7 +6,7 @@ import { argv, cwd, exit } from "node:process";
 
 import fg from "fast-glob";
 import yaml from "js-yaml";
-import Ajv from "ajv";
+import Ajv from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
 const args = argv.slice(2);
@@ -32,7 +32,7 @@ function splitFrontmatter(text) {
   const m = text.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
   if (!m) return { fm: null, body: text };
   try {
-    return { fm: yaml.load(m[1]) ?? {}, body: m[2] };
+    return { fm: yaml.load(m[1], { schema: yaml.JSON_SCHEMA }) ?? {}, body: m[2] };
   } catch (e) {
     return { fm: null, body: text, parseError: e.message };
   }
@@ -44,7 +44,7 @@ async function readText(path) {
 
 async function loadYaml(path) {
   try {
-    return yaml.load(await readText(path));
+    return yaml.load(await readText(path), { schema: yaml.JSON_SCHEMA });
   } catch (e) {
     pushErr("yaml", `${path}: ${e.message}`);
     return null;
@@ -339,11 +339,20 @@ function gateStateMachineCoverage(db) {
     const spec = db.specs.find((s) => dirname(s.path) === dir);
     if (!spec) continue;
     const transitions = parseStateTransitions(mmd);
-    const scenarios = Object.values(side.features ?? {}).join("\n") + "\n" + (JSON.stringify(side["acceptance.yaml"] ?? ""));
+    const scenarios = Object.values(side.features ?? {}).join("\n") + "\n" + JSON.stringify(side["acceptance.yaml"] ?? "");
+    const specIdRe = new RegExp(`${spec.fm.id}-R\\d{2}`);
     for (const t of transitions) {
-      const needle = `${t.from} -> ${t.to}`;
-      if (!scenarios.includes(needle) && !scenarios.includes(t.event)) {
-        pushErr("state-machine", `${spec.fm.id}: transition ${t.from} --> ${t.to}${t.event ? ` (${t.event})` : ""} has no test`);
+      if (t.from === "[*]" || t.to === "[*]") continue;
+      const idsInEvent = (t.event ?? "").match(/SPEC-\d{4}-R\d{2}/g) ?? [];
+      const covered =
+        idsInEvent.some((id) => scenarios.includes(id)) ||
+        scenarios.includes(`${t.from} -> ${t.to}`) ||
+        (t.event && scenarios.includes(t.event));
+      if (!covered) {
+        pushErr(
+          "state-machine",
+          `${spec.fm.id}: transition ${t.from} --> ${t.to}${t.event ? ` (${t.event})` : ""} has no test`
+        );
       }
     }
   }

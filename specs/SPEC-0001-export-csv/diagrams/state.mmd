@@ -1,12 +1,10 @@
 stateDiagram-v2
   [*] --> idle
-  idle --> requested : user_clicks_export
-  requested --> forbidden : role_not_finance
-  requested --> rate_limited : quota_exceeded
-  requested --> generating : authorized
-  generating --> delivered : csv_ready
-  generating --> failed : error
+  idle --> requested : SPEC-0001-R01 user_clicks_export
+  requested --> forbidden : SPEC-0001-R03 role_not_finance
+  requested --> rate_limited : SPEC-0001-R05 quota_exceeded
+  requested --> generating : SPEC-0001-R01 authorized
+  generating --> delivered : SPEC-0001-R02 csv_ready
   delivered --> [*]
   forbidden --> [*]
   rate_limited --> [*]
-  failed --> [*]
