@@ -12,3 +12,6 @@ build/
 .env.local
 verify/traceability.yaml
 verify/traceability.mmd
+
+PLAN.md
+
