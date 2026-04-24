@@ -1,0 +1,16 @@
+metrics:
+  - requirement: SPEC-NNNN-R01
+    type: counter
+    name: example_total
+    labels: [status]
+
+logs:
+  - requirement: SPEC-NNNN-R01
+    level: info
+    event: example_action
+    fields: [user_id]
+
+traces:
+  - requirement: SPEC-NNNN-R01
+    span: example.action
+    attributes: [user_id]

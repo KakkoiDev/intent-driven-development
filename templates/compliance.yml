@@ -1,0 +1,13 @@
+data_classification:
+  - field: example_field
+    class: internal
+    retention_days: 365
+    governed_by: [SPEC-NNNN-R01]
+
+security:
+  asvs:
+    - SPEC-NNNN-R01: [V1.1.1]
+  threat_model:
+    - risk: example_risk
+      mitigation: SPEC-NNNN-R01
+      stride: I

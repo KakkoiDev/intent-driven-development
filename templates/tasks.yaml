@@ -1,0 +1,9 @@
+tasks:
+  - id: TASK-NNNN-01
+    satisfies: [SPEC-NNNN-R01]
+    emits: []
+    produces:
+      - src/path/file.ts
+      - tests/spec-NNNN/file.test.ts
+    status: todo
+    depends-on: []

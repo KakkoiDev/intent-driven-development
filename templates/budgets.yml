@@ -1,0 +1,13 @@
+performance:
+  - requirement: SPEC-NNNN-R01
+    p50_ms: 100
+    p95_ms: 500
+    p99_ms: 1000
+    max_memory_mb: 128
+
+cost:
+  - requirement: SPEC-NNNN-R01
+    max_llm_calls_per_request: 0
+    max_external_api_calls: 2
+    max_db_queries: 5
+    target_cost_usd_per_request: 0.001
