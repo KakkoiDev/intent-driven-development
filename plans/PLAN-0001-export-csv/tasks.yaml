@@ -1,0 +1,71 @@
+tasks:
+  - id: TASK-0001-01
+    satisfies: [SPEC-0001-R03]
+    emits: [export_forbidden_total, invoice_export_forbidden]
+    produces:
+      - src/api/middleware/require-finance.ts
+      - tests/spec-0001/authz.test.ts
+    status: todo
+    depends-on: []
+
+  - id: TASK-0001-02
+    satisfies: [SPEC-0001-R01]
+    emits: []
+    produces:
+      - src/api/routes/invoices-export.ts
+      - tests/spec-0001/route.test.ts
+    status: todo
+    depends-on: [TASK-0001-01]
+
+  - id: TASK-0001-03
+    satisfies: [SPEC-0001-R02]
+    emits: []
+    produces:
+      - src/csv/serialize-invoices.ts
+      - tests/spec-0001/serializer-columns.test.ts
+    status: todo
+    depends-on: []
+
+  - id: TASK-0001-04
+    satisfies: [SPEC-0001-R04]
+    emits: []
+    produces:
+      - src/csv/format-amount.ts
+      - tests/spec-0001/amount-format.test.ts
+    status: todo
+    depends-on: [TASK-0001-03]
+
+  - id: TASK-0001-05
+    satisfies: [SPEC-0001-R06]
+    emits: []
+    produces:
+      - src/csv/redact-pii.ts
+      - tests/spec-0001/pii-redaction.test.ts
+    status: todo
+    depends-on: [TASK-0001-03]
+
+  - id: TASK-0001-06
+    satisfies: [SPEC-0001-R05]
+    emits: [export_rate_limited_total, invoice_export_rate_limited]
+    produces:
+      - src/api/middleware/rate-limit-export.ts
+      - tests/spec-0001/rate-limit.test.ts
+    status: todo
+    depends-on: [TASK-0001-02]
+
+  - id: TASK-0001-07
+    satisfies: [SPEC-0001-R01]
+    emits: [invoices_exported_total, export_latency_seconds, invoice_export_requested]
+    produces:
+      - src/observability/export-telemetry.ts
+      - tests/spec-0001/telemetry.test.ts
+    status: todo
+    depends-on: [TASK-0001-02, TASK-0001-03]
+
+  - id: TASK-0001-08
+    satisfies: [SPEC-0001-R01, SPEC-0001-R02, SPEC-0001-R03, SPEC-0001-R04, SPEC-0001-R05, SPEC-0001-R06]
+    emits: []
+    produces:
+      - tests/spec-0001/integration.test.ts
+    status: todo
+    depends-on: [TASK-0001-01, TASK-0001-02, TASK-0001-03, TASK-0001-04, TASK-0001-05, TASK-0001-06, TASK-0001-07]
