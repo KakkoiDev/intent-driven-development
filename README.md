@@ -51,7 +51,7 @@ Read these first. They show the pattern concretely.
 
 ## Validator Gates
 
-13 CI gates split across structural, test-enforcement, and cross-cutting concerns. See `verify/README.md` for the full list.
+13 validator gates (the receipt gate runs only with `--receipts`, not in CI) split across structural, test-enforcement, and cross-cutting concerns. See `verify/README.md` for the full list.
 
 ## Ecosystem
 

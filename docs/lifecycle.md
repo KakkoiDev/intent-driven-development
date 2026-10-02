@@ -36,7 +36,7 @@ stateDiagram-v2
 - `proposed -> accepted`:
   - For specs: ambiguity pre-check (`/idd-ambiguity`) passes.
   - For plans: has at least one task.
-- `accepted -> implemented`: all tasks `done`, four PR receipts present. Validator-checked: an `implemented` spec must have all tasks `done`; receipt presence only with `--receipts`.
+- `accepted -> implemented`: all tasks `done`, four PR receipts present. Validator-checked: an `implemented` spec must have all tasks `done`. Receipt presence is checked for every spec, any status, only with `--receipts`.
 - `accepted -> deprecated`: explicit decision, `superseded-by:` set. Validator-checked: a `deprecated` artifact must have `superseded-by:`.
 - `* -> superseded`: another artifact exists with `supersedes:` pointing here.
 

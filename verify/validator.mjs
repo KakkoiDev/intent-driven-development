@@ -262,7 +262,7 @@ function gateReqTestBinding(db) {
     for (const r of reqs) {
       byReq[r] = bound.has(r);
       if (!bound.has(r)) {
-        pushErr("req-binding", `${r}: no Gherkin scenario, acceptance entry, or contract binding found`);
+        pushErr("req-binding", `${r}: no Gherkin scenario or acceptance entry found`);
       }
     }
   }

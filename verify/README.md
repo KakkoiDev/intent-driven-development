@@ -39,7 +39,7 @@ The validator runs 13 gates. Specified checks with no code are listed under "Not
 
 ### Test-enforcement
 
-7. **Requirement -> test binding** - every `SPEC-####-R##` covered via Gherkin scenario title, `acceptance.yaml` entry, contract, or named test.
+7. **Requirement -> test binding** - every `SPEC-####-R##` covered via Gherkin scenario title or `acceptance.yaml` entry.
 8. **Receipt presence** - `<spec dir>/receipts/{coverage,mutation,judge,determinism}.yml` exist. Runs only with `--receipts`; CI does not pass the flag. Checks presence only, not content or thresholds.
 
 ### Cross-cutting
