@@ -51,7 +51,7 @@ Read these first. They show the pattern concretely.
 
 ## Validator Gates
 
-15 CI gates split across structural, test-enforcement, and cross-cutting concerns. See `verify/README.md` for the full list.
+13 CI gates split across structural, test-enforcement, and cross-cutting concerns. See `verify/README.md` for the full list.
 
 ## Ecosystem
 

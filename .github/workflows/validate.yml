@@ -21,6 +21,10 @@ jobs:
         working-directory: verify
         run: npm install --no-audit --no-fund
 
+      - name: Test validator
+        working-directory: verify
+        run: npm test
+
       - name: Run IDD validator
         run: node verify/validator.mjs
 

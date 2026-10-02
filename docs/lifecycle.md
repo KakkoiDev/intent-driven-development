@@ -1,6 +1,6 @@
 # Lifecycle
 
-Every IDD artifact (intent, spec, plan, ADR) moves through a fixed state machine. The `status:` field in frontmatter records the current state. The validator enforces allowed transitions.
+Every IDD artifact (intent, spec, plan, ADR) moves through a fixed state machine. The `status:` field in frontmatter records the current state. The validator does not check transitions; it only checks that an `implemented` spec has all tasks `done`. The gates below are human-enforced unless noted.
 
 ## States
 
