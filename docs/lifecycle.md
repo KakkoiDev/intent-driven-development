@@ -1,6 +1,6 @@
 # Lifecycle
 
-Every IDD artifact (intent, spec, plan, ADR) moves through a fixed state machine. The `status:` field in frontmatter records the current state. The validator does not check transitions; it only checks that an `implemented` spec has all tasks `done`. The gates below are human-enforced unless noted.
+Every IDD artifact (intent, spec, plan, ADR) moves through a fixed state machine. The `status:` field in frontmatter records the current state. The validator does not check transitions; it checks only the per-state conditions marked "Validator-checked" below. All other gates are human-enforced.
 
 ## States
 
@@ -32,12 +32,12 @@ stateDiagram-v2
 
 ## Gates
 
-- `draft -> proposed`: frontmatter schema passes.
+- `draft -> proposed`: frontmatter schema passes. Validator-checked on every run, in every state.
 - `proposed -> accepted`:
   - For specs: ambiguity pre-check (`/idd-ambiguity`) passes.
   - For plans: has at least one task.
-- `accepted -> implemented`: all tasks `done`, four PR receipts present.
-- `accepted -> deprecated`: explicit decision, `superseded-by:` set.
+- `accepted -> implemented`: all tasks `done`, four PR receipts present. Validator-checked: an `implemented` spec must have all tasks `done`; receipt presence only with `--receipts`.
+- `accepted -> deprecated`: explicit decision, `superseded-by:` set. Validator-checked: a `deprecated` artifact must have `superseded-by:`.
 - `* -> superseded`: another artifact exists with `supersedes:` pointing here.
 
 ## Version Bumps (Specs Only)

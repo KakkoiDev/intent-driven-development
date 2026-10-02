@@ -70,4 +70,4 @@ Four receipts required:
 3. **Judge** - second LLM confirms tests match spec intent.
 4. **Determinism** - re-build matches `compiled-hash:`.
 
-Missing or weak receipt = PR blocked.
+Missing or weak receipt = PR should be blocked by the reviewer. CI does not enforce receipts: `node verify/validator.mjs --receipts` checks presence only and is not run in CI.
