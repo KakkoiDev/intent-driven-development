@@ -60,7 +60,6 @@ The validator fails the PR if:
 
 - Any requirement is not covered by at least one task.
 - Any referenced ID does not resolve.
-- Any produced file is missing.
 - Any observability signal declared in `observability.yml` has no emitting task.
 - Any `compliance.yml` PII field has no governing requirement.
 - Any state machine transition has no test.

@@ -72,7 +72,7 @@ Every PR that implements a spec requirement must attach four receipts:
 3. **Judge** - second LLM confirms tests match spec intent.
 4. **Determinism** - re-build spec from `generation-seed:` matches `compiled-hash:`.
 
-Missing or weak receipt = PR blocked.
+Missing or weak receipt = PR should be blocked by the reviewer. CI does not enforce receipts: `node verify/validator.mjs --receipts` checks presence only and is not run in CI.
 
 ## Traceability Format
 

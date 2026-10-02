@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { existsSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { resolve, relative, dirname, basename } from "node:path";
@@ -261,7 +262,7 @@ function gateReqTestBinding(db) {
     for (const r of reqs) {
       byReq[r] = bound.has(r);
       if (!bound.has(r)) {
-        pushErr("req-binding", `${r}: no Gherkin scenario, acceptance entry, or contract binding found`);
+        pushErr("req-binding", `${r}: no Gherkin scenario or acceptance entry found`);
       }
     }
   }
@@ -377,7 +378,7 @@ function gateReceipts(db) {
     const want = ["coverage", "mutation", "judge", "determinism"];
     for (const name of want) {
       const p = `${dir}/receipts/${name}.yml`;
-      if (!require("fs").existsSync(resolve(ROOT, p))) {
+      if (!existsSync(resolve(ROOT, p))) {
         pushErr("receipts", `${s.fm.id}: missing ${p}`);
       }
     }
